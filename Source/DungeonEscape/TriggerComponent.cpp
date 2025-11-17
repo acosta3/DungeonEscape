@@ -17,7 +17,7 @@ void UTriggerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Display, TEXT("Trigger Component Begin Play"));
-
+	// Selects the Component we want to interact with
 	if (MoverActor != nullptr) 
 	{
 		Mover = MoverActor->FindComponentByClass<UMoverComponent>();
