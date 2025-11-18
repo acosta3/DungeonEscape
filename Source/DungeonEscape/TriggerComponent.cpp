@@ -24,7 +24,7 @@ void UTriggerComponent::BeginPlay()
 		if(Mover != nullptr) 
 		{
 			UE_LOG(LogTemp, Display, TEXT("Mover Component found in Trigger Component"));
-			Mover->ShouldMove = true;
+			
 		}
 		else
 		{
@@ -36,6 +36,15 @@ void UTriggerComponent::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Mover Actor is null in Trigger Component"));
 	}
 
+	// binding the delegate
+
+	if (isPressurePlate) {
+		OnComponentBeginOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapBegin);
+		OnComponentEndOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapEnd);
+
+	}
+	
+
 
 }
 
@@ -45,11 +54,22 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-
-
-	
-
-
-
 	// ...
+}
+
+void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (Mover) {
+		Mover->ShouldMove = true;
+	}
+	
+}
+
+void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (Mover) 
+	{
+		Mover->ShouldMove = false;
+	}
+	
 }
