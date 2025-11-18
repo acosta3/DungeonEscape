@@ -41,6 +41,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool isPressurePlate = false;
 
+
+	UPROPERTY(VisibleAnywhere)
+	int32 ActivatorCount = 0;
 	
 
 	/** called when something enters the sphere component */

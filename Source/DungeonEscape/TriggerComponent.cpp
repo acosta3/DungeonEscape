@@ -72,6 +72,7 @@ void UTriggerComponent::Trigger(bool NewTriggerValue)
 void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && (Mover && OtherActor->ActorHasTag("PressurePlateActivate"))) {
+		ActivatorCount++;
 		if (!isTriggered) {
 			Trigger(true);
 		}
@@ -83,7 +84,8 @@ void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor
 {
 	if (OtherActor && (Mover && OtherActor->ActorHasTag("PressurePlateActivate")))
 	{
-		if (isTriggered) {
+		ActivatorCount--;
+		if (ActivatorCount == 0 && isTriggered) {
 			Trigger(false);
 		}
 	}
