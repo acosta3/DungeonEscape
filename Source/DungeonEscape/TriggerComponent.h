@@ -28,6 +28,11 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void Trigger(bool NewTriggerValue);
+
+	UPROPERTY(VisibleAnywhere)
+	bool isTriggered = false;
+
 	UPROPERTY(EditAnywhere)
 	AActor* MoverActor;
 
@@ -36,6 +41,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool isPressurePlate = false;
 
+	
 
 	/** called when something enters the sphere component */
 	UFUNCTION()

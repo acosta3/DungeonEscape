@@ -12,7 +12,9 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UMoverComponent : public UActorComponent
 {
 	GENERATED_BODY()
-
+private:
+	UPROPERTY(VisibleAnywhere)
+	bool ShouldMove = false;
 public:	
 	// Sets default values for this component's properties
 	UMoverComponent();
@@ -25,15 +27,19 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	bool GetShouldMove();
+
+	void SetShouldMove(bool newMove);
+
+
+
+
 	UPROPERTY(EditAnywhere)
 	FVector MoveOffset;
 
 	UPROPERTY(EditAnywhere)
 	float MoveTime = 4.f;
 
-
-	UPROPERTY(EditAnywhere)
-	bool ShouldMove = false;
 
 	UPROPERTY(VisibleAnywhere)
 	bool ReachedTarget = false;
