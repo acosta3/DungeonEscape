@@ -72,7 +72,11 @@ void ADungeonEscapeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 
 void ADungeonEscapeCharacter::Interact()
 {
-	UE_LOG(LogDungeonEscape, Warning, TEXT("Interact called in C++"));
+	FVector Start = FirstPersonCameraComponent->GetComponentLocation();
+	FVector End = Start + (FirstPersonCameraComponent->GetForwardVector() * MaxInteractionDistance);
+
+	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 5.0f);
+	
 }
 
 
