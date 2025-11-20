@@ -76,7 +76,24 @@ void ADungeonEscapeCharacter::Interact()
 	FVector End = Start + (FirstPersonCameraComponent->GetForwardVector() * MaxInteractionDistance);
 
 	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 5.0f);
+
+	FCollisionShape IntreractionSphere = FCollisionShape::MakeSphere(InteractSphereRadius);
+	DrawDebugSphere(GetWorld(), End, InteractSphereRadius, 20, FColor::Red, false, 5.0f);
 	
+	FHitResult HitResult;
+	bool bHasHit = GetWorld()->SweepSingleByChannel(HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, IntreractionSphere);
+
+	if (bHasHit)
+	{
+		if (AActor* HitActor = HitResult.GetActor())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *HitActor->GetName());
+		}
+		else 
+		{
+			UE_LOG(LogTemp, Warning, TEXT("No Actor Hit"));
+		}
+	}
 }
 
 
