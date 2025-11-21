@@ -7,6 +7,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
+#include "CollectableItem.h"
+#include "Lock.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "DungeonEscape.h"
 
@@ -85,14 +87,28 @@ void ADungeonEscapeCharacter::Interact()
 
 	if (bHasHit)
 	{
-		if (AActor* HitActor = HitResult.GetActor())
+		AActor* HitActor = HitResult.GetActor();
+
+		if (HitActor->ActorHasTag("CollectableItem"))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *HitActor->GetName());
+			// Hit Actor is a Collectable Item
+			ACollectableItem *CollectableItem = Cast<ACollectableItem>(HitActor);
+			if(CollectableItem) 
+			{
+				UE_LOG(LogDungeonEscape, Warning, TEXT("Interacted with Collectable Item: %s"), *CollectableItem->GetName());
+			}
 		}
-		else 
+		else if (HitActor->ActorHasTag("Lock")) 
 		{
-			UE_LOG(LogTemp, Warning, TEXT("No Actor Hit"));
+			// Hit Actor is a Lock
+			ALock* LockActor = Cast<ALock>(HitActor);
+			if (LockActor)
+			{
+				UE_LOG(LogDungeonEscape, Warning, TEXT("Interacted with Lock: %s"), *LockActor->GetName());
+			}
+
 		}
+		
 	}
 }
 
