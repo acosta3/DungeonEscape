@@ -107,7 +107,25 @@ void ADungeonEscapeCharacter::Interact()
 			ALock* LockActor = Cast<ALock>(HitActor);
 			if (LockActor)
 			{
-				UE_LOG(LogDungeonEscape, Warning, TEXT("Interacted with Lock: %s"), *LockActor->GetName());
+				// State
+				// 1 is lock empty
+				//2 is not locked do we have the key?
+				//3 remove the item from inventory 
+				//4  Activate the lock
+
+				if(!LockActor->GetIsKeyPlaced())
+				{
+					int32 IsRemoved = Inventory.RemoveSingle(LockActor->KeyItemName);
+					if (IsRemoved)
+					{
+						LockActor->SetIsKeyPlaced(true);
+					}
+					else
+					{
+						UE_LOG(LogDungeonEscape, Warning, TEXT("'%s' You don't have the key item '%s' in your inventory!"), *GetNameSafe(this), *LockActor->KeyItemName);
+					}
+				}
+
 			}
 
 		}
