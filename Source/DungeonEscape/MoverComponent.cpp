@@ -21,7 +21,7 @@ void UMoverComponent::BeginPlay()
 	Super::BeginPlay();
 	
 	StartLocation = GetOwner()->GetActorLocation();
-	//SetShouldMove(false);
+	SetShouldMove(false);
 
 	//TargetLocation = StartLocation + MoveOffset;
 

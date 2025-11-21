@@ -88,15 +88,34 @@ void ADungeonEscapeCharacter::Interact()
 	if (bHasHit)
 	{
 		AActor* HitActor = HitResult.GetActor();
+		UE_LOG(LogDungeonEscape, Log, TEXT("'%s' Hit Actor: '%s'"), *GetNameSafe(this), *GetNameSafe(HitActor));
+		
+		/*FString TagsString;
+
+		for (const FName& Tag : HitActor->Tags)
+		{
+			TagsString += Tag.ToString();
+			TagsString += TEXT(" ");
+		}
+
+		UE_LOG(
+			LogDungeonEscape,
+			Log,
+			TEXT("'%s' Hit Actor Tags (%d): %s"),
+			*GetNameSafe(HitActor),
+			HitActor->Tags.Num(),
+			*TagsString
+		);*/
 
 		if (HitActor->ActorHasTag("CollectableItem"))
 		{
+			UE_LOG(LogDungeonEscape, Log, TEXT("'%s' Collectable Item Hit!"), *GetNameSafe(this));
 			// Hit Actor is a Collectable Item
 			ACollectableItem *CollectableItem = Cast<ACollectableItem>(HitActor);
 			if(CollectableItem) 
 			{
 				// We added the item to our inventory by a string
-				Inventory.Add(CollectableItem->GetName());
+				Inventory.Add(CollectableItem->ItemName);
 				// destroy the item in the world
 				CollectableItem->Destroy();
 			}
@@ -112,7 +131,6 @@ void ADungeonEscapeCharacter::Interact()
 				//2 is not locked do we have the key?
 				//3 remove the item from inventory 
 				//4  Activate the lock
-
 				if(!LockActor->GetIsKeyPlaced())
 				{
 					int32 IsRemoved = Inventory.RemoveSingle(LockActor->KeyItemName);
