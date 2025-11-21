@@ -143,6 +143,15 @@ void ADungeonEscapeCharacter::Interact()
 						UE_LOG(LogDungeonEscape, Warning, TEXT("'%s' You don't have the key item '%s' in your inventory!"), *GetNameSafe(this), *LockActor->KeyItemName);
 					}
 				}
+				else 
+				{
+					// Taking back the itme
+					// Lock has a kwy inside!
+					// Add the key back to inventory
+					// Deactivate the lock
+					Inventory.Add(LockActor->KeyItemName);
+					LockActor->SetIsKeyPlaced(false);
+				}
 
 			}
 
