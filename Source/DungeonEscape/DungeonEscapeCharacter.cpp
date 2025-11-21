@@ -95,7 +95,10 @@ void ADungeonEscapeCharacter::Interact()
 			ACollectableItem *CollectableItem = Cast<ACollectableItem>(HitActor);
 			if(CollectableItem) 
 			{
-				UE_LOG(LogDungeonEscape, Warning, TEXT("Interacted with Collectable Item: %s"), *CollectableItem->GetName());
+				// We added the item to our inventory by a string
+				Inventory.Add(CollectableItem->GetName());
+				// destroy the item in the world
+				CollectableItem->Destroy();
 			}
 		}
 		else if (HitActor->ActorHasTag("Lock")) 

@@ -103,5 +103,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float InteractSphereRadius = 30.0f;
+
+private:
+	UPROPERTY(VisibleAnywhere);
+	TArray<FString> Inventory;
+
 };
 
