@@ -45,7 +45,6 @@ void ALock::SetIsKeyPlaced(bool NewIsKeyPlaced)
 {
 	IsKeyPlaced = NewIsKeyPlaced;
 	TriggerComp->Trigger(NewIsKeyPlaced);
-
 	KeyItemMesh->SetVisibility(NewIsKeyPlaced);
 }
 

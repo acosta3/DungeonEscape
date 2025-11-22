@@ -124,6 +124,7 @@ void ADungeonEscapeCharacter::Interact()
 		{
 			// Hit Actor is a Lock
 			ALock* LockActor = Cast<ALock>(HitActor);
+			
 			if (LockActor)
 			{
 				// State
@@ -131,9 +132,12 @@ void ADungeonEscapeCharacter::Interact()
 				//2 is not locked do we have the key?
 				//3 remove the item from inventory 
 				//4  Activate the lock
+				UE_LOG(LogDungeonEscape, Log, TEXT("'%s' Lock Hit!"), *GetNameSafe(this));
 				if(!LockActor->GetIsKeyPlaced())
 				{
+					
 					int32 IsRemoved = Inventory.RemoveSingle(LockActor->KeyItemName);
+					UE_LOG(LogDungeonEscape, Log, TEXT("'%s' Trying to place key item '%s' into lock. Removed count: %d"), *GetNameSafe(this), *LockActor->KeyItemName, IsRemoved);
 					if (IsRemoved)
 					{
 						LockActor->SetIsKeyPlaced(true);
