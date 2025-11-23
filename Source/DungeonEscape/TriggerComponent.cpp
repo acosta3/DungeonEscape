@@ -59,6 +59,7 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 void UTriggerComponent::Trigger(bool NewTriggerValue)
 {
+	isTriggered = NewTriggerValue;
 	if (Mover) 
 	{
 		Mover->SetShouldMove(NewTriggerValue);
@@ -73,6 +74,7 @@ void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 {
 	if (OtherActor && (Mover && OtherActor->ActorHasTag("PressurePlateActivate"))) {
 		ActivatorCount++;
+		UE_LOG(LogTemp, Display, TEXT("Activator Count: %d"), ActivatorCount);
 		if (!isTriggered) {
 			Trigger(true);
 		}
@@ -85,8 +87,10 @@ void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor
 	if (OtherActor && (Mover && OtherActor->ActorHasTag("PressurePlateActivate")))
 	{
 		ActivatorCount--;
+		UE_LOG(LogTemp, Display, TEXT("Activator Count: %d"), ActivatorCount);
 		if (ActivatorCount == 0 && isTriggered) {
 			Trigger(false);
+			UE_LOG(LogTemp, Display, TEXT("Pressure Plate Deactivated"));
 		}
 	}
 	
