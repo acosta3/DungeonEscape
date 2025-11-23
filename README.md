@@ -22,6 +22,14 @@ This project focuses on core gameplay systems like moving platforms, pressure pl
   - Imported and used free asset packs from the **Epic Games Marketplace**.
 - **Reusable Actors**
   - Created Blueprint/C++ actors (e.g., moving platforms, locks) and reused them throughout the level via drag-and-drop.
+### 🧱 Collision & Traces
+
+- **Collision Setup**
+  - Configured collision on static meshes so the player can’t walk through walls but can overlap triggers and interactable actors.
+- **Line & Sphere Traces**
+  - Used **line traces** to detect what the player is looking at and interact with.
+  - Used **sphere-style overlap/trace logic** to check for nearby actors .
+  - Gained a basic understanding of collision channels and how traces use them to filter hits.
 
 ### 🔐 Puzzle & Gameplay Systems
 
